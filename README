@@ -1,0 +1,79 @@
+*******************************************
+CS370 COMPUTER ARCHITECTURE
+SAN DIEGO STATE UNIVERSITY
+APRIL 18, 2022
+AUTHORS: KYLE KRUEGER, NOAH MEEKER
+*******************************************
+LAB 3: GOTCHA ANTI-THEFT MACHINE (USING KYLE's SECRET KEY)
+*******************************************
+
+GOAL:
+There are two parts to this lab.
+Part One:
+The goal of the lab is to create a finite state machine (FSM) that will
+detect an 8 digit binary sequence input input by the user using 2 buttons.
+The user will input a sequence, and if the code "00000011" is entered
+the output will be 1 and it will reset the sequence. If there are
+16 button presses, then the system will lock the user out until the reset button is pressed.
+
+Part Two:
+The goal of part 2 is to create a similar machine to part one, 
+however we will add the feature of a user programmable lock code instead of 
+using "00000011".
+
+********************************************
+OPERATING INSTRUCTIONS FOR PART ONE
+********************************************
+
+1) Button Reset should output a value of 1 in order to work the machine. 
+    Note: by default, the button reset outputs a 1, and outputs a 0 when pressed
+2) Press the button 0 and button 1 in order to input the combination
+3) After 16 failed attempts, the machine will lock, requiring a press of the reset button for further attempts
+
+********************************************
+OPERATING INSTRUCTIONS FOR PART TWO
+********************************************
+1) Select desired combination from the two hex keyboards above the programmable user code, and press the save button
+2) The lock is now saved with the combination, follow instructions from part one for input. 
+3) Pressing the reset button will reset the 16 bit locker, and allow for further attempts
+    Note: a correct combination input will also automatically reset this lock. 
+
+********************************************
+CONTRIBUTIONS OF EACH GROUP MEMBER
+********************************************
+
+KYLE: 
+    Designing and implementing 16 Count Locker into the Gotcha Anti Theft Machine
+    Creating the PGC "Personal Generated Code" Circuit into Part 2
+    Worked on creating state tables and diagrams
+    Created the README
+    
+NOAH:
+    Designing the majority of the Gotcha Anti Theft Machine 
+    Creating the 8 bit sequencer on part 2
+    Worked on creating state tables and diagrams
+    Connected the entire circuit together
+    Finalized the circuit connections and documentation within the lab files
+
+********************************************
+DESIGN PROCESS
+********************************************
+
+We chose the design of our Gotcha anti theft machine by first drawing a state diagram
+of our machine. This diagram will be included in a PDF file submitted with the assignment.
+Then we drew a state diagram, generated equations, and optimized those equations 
+to create everything except the functionality relating to the 16-bit lock.
+The 16 bit lock was created using an incrimentor, that will incriment until
+it has reached 15 and then it will lock until the reset is switched.
+
+For the Personal generated code, we used 4 d flip flops to save the current password
+and then use and gates to compare the input sequence to the password using XOR gates and
+inverters. 
+
+********************************************
+LEARNING OUTCOMES
+********************************************
+This project utilized skills taught in the Computer Architecture class at San Diego State University by demonstrating
+the use of creating state tables, state diagrams, and optimizing equations using a kmap, collaborating using github,
+knowledge of the LogicWorks 5 software in order to design the circuits, knowledge of registers and basic logic functions, and documenting a project. 
+
