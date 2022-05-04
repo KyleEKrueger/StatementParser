@@ -3,28 +3,42 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "flex.h"
-extern int yylex();
-extern int yyparse();
+extern int yylex(void);
+extern int yyparse(void);
 void yyerror(const char *msg);
+linecount = 1;
 %}
+%left '-''+'
+%left '*''/'
+%error-verbose
+%token DIGIT ID OP OPENP CLOSEP EQUAL SEMICOLON NEWLINE
+%%
+file:		| line
+		| file line
 
-%token DIGIT CHAR OP OPENP CLOSEP EQUAL SEMICOLON NEWLINE
+line:		| ass NEWLINE {printf("line %d:GOOD\n",linecount);linecount++;}
+		| exp NEWLINE {printf("line %d:GOOD\n",linecount);linecount++;}
+
+exp:		| ID OP ID 
+		| exp OP ID 
+		| OPENP exp CLOSEP 
+		| OPENP ass CLOSEP
+		| ID OP exp
+ass:		| ID EQUAL exp SEMICOLON 
+
 
 %%
-line:		ass NEWLINE | exp NEWLINE 
-		;
-ass:		id EQUAL exp SEMICOLON
-		;
-exp:		id OP id | exp OP id | OPENP exp CLOSEP
-		;
-id:		CHAR | id CHAR | id DIGIT
-		;
 
-%%
-
-int mainb (int argc, char ** argv){
+int main (int argc, char ** argv){
+	if (argc > 1) {
+		yyin = fopen(argv[1],"r");
+		if (yyin == NULL){
+			printf("syntax: %s filename\n", argv[0]);
+		}
+	}
 	yyparse();
 	return 0;
 }
 void yyerror(const char *msg)	{
+	printf("%s: %s\n",msg,yytext);
 }
