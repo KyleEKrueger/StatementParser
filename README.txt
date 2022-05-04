@@ -29,11 +29,15 @@ bison.y
 INSTRUCTIONS
 ************************************
 COMPILE:
+To generate the necessary header file before being able to use the makefile, type "flex --header-file=flex.h flex.l"
+After this is generated, the program will compile properly with "make"
 
 ************************************
 ISSUES
+
 ************************************
 
 ************************************
 LESSONS LEARNED
+Learned about flex and bison and how they interact with each other. Learned more about regular expressions. Learned about BNF Grammar.
 ************************************
