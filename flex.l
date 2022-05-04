@@ -11,14 +11,14 @@ int lineCount = 1;
 %%
 [0-9]+		{return(DIGIT);}
 [a-zA-Z][a-zA-Z0-9]*	{return(ID);}
-[+-/*%]		{return(OP);}
+[\x25|\x2B|\x2A|\x2D|\x2F]	{return(OP);}
 " "		{;}
 "\n"		{lineCount++; return(NEWLINE);}
 "(" 		{return(OPENP);}
 ")"		{return(CLOSEP);}
 "="		{return(EQUAL);}
 ";"		{return(SEMICOLON);}
-.		{printf("ERROR: Unrecognized Symbol at line %d : %s\n",lineCount,yytext);}
+.		{;}
 %%
 
 int flex (int argc, char *argv[]){

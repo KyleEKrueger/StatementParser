@@ -17,15 +17,15 @@ file:		| line
 		| file line
 
 line:		| ass NEWLINE {printf("line %d:GOOD\n",linecount);linecount++;}
+		| error NEWLINE {yyerrok;}
 		| exp NEWLINE {printf("line %d:GOOD\n",linecount);linecount++;}
 
 exp:		| ID OP ID 
-		| exp OP ID 
+		| exp OP ID
+		| ID OP exp 
 		| OPENP exp CLOSEP 
 		| OPENP ass CLOSEP
-		| ID OP exp
 ass:		| ID EQUAL exp SEMICOLON 
-
 
 %%
 
@@ -40,5 +40,6 @@ int main (int argc, char ** argv){
 	return 0;
 }
 void yyerror(const char *msg)	{
-	printf("%s: %s\n",msg,yytext);
+	linecount++;
+	printf("line %d:BAD : %s\n",linecount,msg);
 }
