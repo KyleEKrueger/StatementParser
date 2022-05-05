@@ -1,27 +1,28 @@
-/*LEX PROGRAM*/
-%{	
-#include"bison.tab.h"
+/*Lex Program*/
+%{
+#include "bison.tab.h"
 #include<stdio.h>
 #include<stdlib.h>
-int lineCount = 1;
+void errorMessage();
 %}
-
-%option noyywrap
 /*Rule Section*/
 %%
-[0-9]+		{return(DIGIT);}
-[a-zA-Z][a-zA-Z0-9]*	{return(ID);}
-[\x25|\x2B|\x2A|\x2D|\x2F]	{return(OP);}
-" "		{;}
-"\n"		{lineCount++; return(NEWLINE);}
-"(" 		{return(OPENP);}
-")"		{return(CLOSEP);}
-"="		{return(EQUAL);}
-";"		{return(SEMICOLON);}
-.		{;}
+[0-9]		return("DIGIT");
+[a-zA-Z]	return("CHAR");
+[+|-|*|\x2F|%]	return("OP");
+[\x20]		return("");i
+[\n]		return("NEWLINE");
+[(] 		return("OPENP");
+[)]		return("CLOSEP");
+[=]		return("EQUAL");
+[;]		return("SEMICOLON");
+.		errorMessage();
 %%
+void errorMessage(){
+printf("ERROR: UNEXPECTED INPUT; UNABLE TO TOKENIZE: ",yytext);
+}
 
-int flex (int argc, char *argv[]){
+int main(int argc, char *argv[]){
     
 	FILE *file = fopen(argv[1], "r");
 	if(!file){
@@ -37,5 +38,3 @@ int flex (int argc, char *argv[]){
 	return 0;
 
 	}	
-
-
