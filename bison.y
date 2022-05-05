@@ -13,19 +13,25 @@ linecount = 1;
 %error-verbose
 %token DIGIT ID OP OPENP CLOSEP EQUAL SEMICOLON NEWLINE
 %%
+
+
 file:		| line
 		| file line
 
 line:		| ass NEWLINE {printf("line %d:GOOD\n",linecount);linecount++;}
 		| error NEWLINE {yyerrok;}
 		| exp NEWLINE {printf("line %d:GOOD\n",linecount);linecount++;}
+		| opop NEWLINE {yyerror("invalid - OP OP");}
+
+opop:		| ID OP OP ID  
 
 exp:		| ID OP ID 
 		| exp OP ID
 		| ID OP exp 
 		| OPENP exp CLOSEP 
 		| OPENP ass CLOSEP
-ass:		| ID EQUAL exp SEMICOLON 
+ass:		| ID EQUAL exp SEMICOLON
+
 
 %%
 
